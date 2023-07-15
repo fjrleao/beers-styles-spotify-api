@@ -9,6 +9,6 @@ const beerSchema = z.object({
 	avgTemperature: z.number(),
 })
 
-const beerCreateSchema = beerSchema.omit({ _id: true })
+const beerCreateSchema = beerSchema.omit({ _id: true, avgTemperature: true })
 
 export { beerSchema, beerCreateSchema }
