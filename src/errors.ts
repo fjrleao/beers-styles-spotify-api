@@ -29,7 +29,11 @@ const handleError = (
 		})
 	}
 
-	// TODO: handle mongodb error
+	if (err.message.includes('E11000 duplicate key error collection')) {
+		return res.status(409).json({
+			message: 'Already exists',
+		})
+	}
 
 	console.log(err)
 
