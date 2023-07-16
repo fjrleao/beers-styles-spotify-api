@@ -3,6 +3,7 @@ import { TBeer, TBeerCreate, TBeerUpdate } from '../types/beer.types'
 import createBeer from '../services/createBeer.service'
 import listBeerService from '../services/listBeer.service'
 import updateBeerService from '../services/updateBeer.service'
+import deleteBeerService from '../services/deleteBeer.service'
 
 const createBeerController = async (req: Request, res: Response) => {
 	const beerData: TBeerCreate = req.body
@@ -22,4 +23,15 @@ const updateBeerController = async (req: Request, res: Response) => {
 	return res.json(updatedBeer)
 }
 
-export { createBeerController, listBeerController, updateBeerController }
+const deleteBeerController = async (req: Request, res: Response) => {
+	const id: string = req.params.id
+	await deleteBeerService(id)
+	return res.status(204).send()
+}
+
+export {
+	createBeerController,
+	listBeerController,
+	updateBeerController,
+	deleteBeerController,
+}

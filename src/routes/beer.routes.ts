@@ -1,15 +1,12 @@
 import { Router } from 'express'
 import {
 	createBeerController,
+	deleteBeerController,
 	listBeerController,
 	updateBeerController,
 } from '../controllers/beer.controllers'
 import ensureReqBodyIsValidMiddleware from '../middlewares/ensureReqBodyIsValid.middleware'
-import {
-	beerCreateSchema,
-	beerSchema,
-	beerUpdateSchema,
-} from '../schemas/beer.schemas'
+import { beerCreateSchema, beerUpdateSchema } from '../schemas/beer.schemas'
 
 const beerRoutes: Router = Router()
 
@@ -24,5 +21,6 @@ beerRoutes.patch(
 	ensureReqBodyIsValidMiddleware(beerUpdateSchema),
 	updateBeerController
 )
+beerRoutes.delete('/:id', deleteBeerController)
 
 export default beerRoutes
