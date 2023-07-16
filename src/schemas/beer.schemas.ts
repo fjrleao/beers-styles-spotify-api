@@ -10,5 +10,6 @@ const beerSchema = z.object({
 })
 
 const beerCreateSchema = beerSchema.omit({ _id: true, avgTemperature: true })
+const beerUpdateSchema = beerCreateSchema.partial()
 
-export { beerSchema, beerCreateSchema }
+export { beerSchema, beerCreateSchema, beerUpdateSchema }

@@ -2,9 +2,14 @@ import { Router } from 'express'
 import {
 	createBeerController,
 	listBeerController,
+	updateBeerController,
 } from '../controllers/beer.controllers'
 import ensureReqBodyIsValidMiddleware from '../middlewares/ensureReqBodyIsValid.middleware'
-import { beerCreateSchema, beerSchema } from '../schemas/beer.schemas'
+import {
+	beerCreateSchema,
+	beerSchema,
+	beerUpdateSchema,
+} from '../schemas/beer.schemas'
 
 const beerRoutes: Router = Router()
 
@@ -14,5 +19,10 @@ beerRoutes.post(
 	createBeerController
 )
 beerRoutes.get('', listBeerController)
+beerRoutes.patch(
+	'/:id',
+	ensureReqBodyIsValidMiddleware(beerUpdateSchema),
+	updateBeerController
+)
 
 export default beerRoutes
