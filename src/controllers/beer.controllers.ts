@@ -1,13 +1,13 @@
 import { Request, Response } from 'express'
 import { TBeer, TBeerCreate, TBeerUpdate } from '../types/beer.types'
-import createBeer from '../services/createBeer.service'
 import listBeerService from '../services/listBeer.service'
 import updateBeerService from '../services/updateBeer.service'
 import deleteBeerService from '../services/deleteBeer.service'
+import createBeerService from '../services/createBeer.service'
 
 const createBeerController = async (req: Request, res: Response) => {
 	const beerData: TBeerCreate = req.body
-	const newBeer: TBeer = await createBeer(beerData)
+	const newBeer: TBeer = await createBeerService(beerData)
 	return res.status(201).json(newBeer)
 }
 
