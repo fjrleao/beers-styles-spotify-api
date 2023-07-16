@@ -1,0 +1,13 @@
+version: '3.9'
+
+services:
+  mongo:
+    container_name: mongo_test
+    image: mongo:latest
+    restart: always
+    ports:
+      - 27017:27017
+    environment:
+      MONGO_INITDB_ROOT_USERNAME: test
+      MONGO_INITDB_ROOT_PASSWORD: 1234
+      MONGO_INITDB_DATABASE: test
