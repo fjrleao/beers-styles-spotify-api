@@ -1,10 +1,10 @@
-import app from '../../app'
+import app from '../../../app'
 import {
 	connectDatabase,
 	disconnectDatabase,
-} from '../configs/database/connection'
+} from '../../configs/database/connection'
 import request from 'supertest'
-import { avgCreateBeer, createBeer } from '../configs/mocks/beer'
+import { avgCreateBeer, createBeer } from '../../configs/mocks/beer'
 
 describe('Test beers routes', () => {
 	let beerId: string
