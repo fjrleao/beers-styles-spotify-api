@@ -1,4 +1,4 @@
-import { TBeerCreate } from '../../types/beer.types'
+import { TBeerCreate } from '../../../types/beer.types'
 
 const createBeer: TBeerCreate = {
 	beerStyle: 'Red Ale',
