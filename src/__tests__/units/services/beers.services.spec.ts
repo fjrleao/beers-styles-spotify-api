@@ -66,13 +66,14 @@ describe('Test beers services', () => {
 
 		it('Should be capable to update a beer', async () => {
 			const result = await updateBeerService(
-				{ beerStyle: 'Atualizado' },
+				{ beerStyle: 'Atualizado', maxTemperature: 6 },
 				String(beer._id)
 			)
+			const avg = (beer.minTemperature + 6) / 2
 			expect(result?.beerStyle).toBe('Atualizado')
-			expect(result?.maxTemperature).toBe(beer.maxTemperature)
+			expect(result?.maxTemperature).toBe(6)
 			expect(result?.minTemperature).toBe(beer.minTemperature)
-			expect(result?.avgTemperature).toBe(beer.avgTemperature)
+			expect(result?.avgTemperature).toBe(avg)
 		})
 	})
 })
