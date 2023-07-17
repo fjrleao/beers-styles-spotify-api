@@ -36,6 +36,8 @@ const listBeerStylePlaylistService = async (temperature: number) => {
 		)
 	}
 
+	console.log(beers)
+
 	const accessToken = await getSpotifyToken()
 
 	for (let index = 0; index < beers.length; index++) {
@@ -46,31 +48,41 @@ const listBeerStylePlaylistService = async (temperature: number) => {
 			},
 		})
 
-		const tracks = await axios.get(playlists.data.playlists.items[0].href, {
-			headers: {
-				Authorization: `Bearer ${accessToken}`,
-			},
-			params: {
-				offset: 0,
-				limit: 3,
-			},
-		})
+		if (
+			playlists.data.playlists.items[0].name
+				.toLowerCase()
+				.includes(beers[index].beerStyle.toLowerCase())
+		) {
+			const tracks = await axios.get(playlists.data.playlists.items[0].href, {
+				headers: {
+					Authorization: `Bearer ${accessToken}`,
+				},
+				params: {
+					offset: 0,
+					limit: 3,
+				},
+			})
 
-		const processedTracks = tracks.data.tracks.items.map((t: any) => {
-			return {
-				name: t.track.name,
-				artist: t.track.artists[0].name,
-				link: t.track.artists[0].href,
-			}
-		})
+			const processedTracks = tracks.data.tracks.items.map((t: any) => {
+				return {
+					name: t.track.name,
+					artist: t.track.artists[0].name,
+					link: t.track.artists[0].href,
+				}
+			})
 
-		dataToReturn.push({
-			beerStyle: beers[index].beerStyle,
-			playlist: {
-				name: playlists.data.playlists.items[0].name,
-				tracks: processedTracks,
-			},
-		})
+			dataToReturn.push({
+				beerStyle: beers[index].beerStyle,
+				playlist: {
+					name: playlists.data.playlists.items[0].name,
+					tracks: processedTracks,
+				},
+			})
+		}
+	}
+
+	if (dataToReturn.length === 0) {
+		throw new AppError('Playlists not found', 404)
 	}
 
 	return dataToReturn.length === 1 ? dataToReturn[0] : dataToReturn
