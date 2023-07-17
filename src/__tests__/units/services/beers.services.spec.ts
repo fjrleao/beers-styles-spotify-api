@@ -10,7 +10,7 @@ import deleteBeerService from '../../../services/deleteBeer.service'
 import { TBeer } from '../../../types/beer.types'
 import updateBeerService from '../../../services/updateBeer.service'
 
-describe('Test services', () => {
+describe('Test beers services', () => {
 	beforeAll(async () => {
 		await connectDatabase()
 	})
