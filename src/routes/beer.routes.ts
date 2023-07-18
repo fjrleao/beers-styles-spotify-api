@@ -3,6 +3,7 @@ import {
 	createBeerController,
 	deleteBeerController,
 	listBeerController,
+	listBeerStylePlaylistController,
 	updateBeerController,
 } from '../controllers/beer.controllers'
 import ensureReqBodyIsValidMiddleware from '../middlewares/ensureReqBodyIsValid.middleware'
@@ -22,5 +23,6 @@ beerRoutes.patch(
 	updateBeerController
 )
 beerRoutes.delete('/:id', deleteBeerController)
+beerRoutes.get('/playlist', listBeerStylePlaylistController)
 
 export default beerRoutes

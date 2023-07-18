@@ -6,9 +6,13 @@ on:
     branches: [main]
 
 jobs:
-  docker:
+  run-tests:
     timeout-minutes: 10
     runs-on: ubuntu-latest
+
+    env:
+      SPOTIFY_API_CLIENT_ID: ${{secrets.SPOTIFY_API_CLIENT_ID}}
+      SPOTIFY_API_CLIENT_SECRET: ${{secrets.SPOTIFY_API_CLIENT_SECRET}}
 
     steps:
       - name: Checkout
