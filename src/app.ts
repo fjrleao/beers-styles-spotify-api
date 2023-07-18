@@ -10,7 +10,7 @@ app.use(express.json())
 app.use('/beers', beerRoutes)
 
 app.get('/docs', (req: Request, res: Response) => {
-	res.sendFile(path.join(__dirname, './docs/index.html'))
+	res.sendFile('./docs/index.html', { root: 'public' })
 })
 
 app.use(handleError)
