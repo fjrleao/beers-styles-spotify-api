@@ -36,8 +36,6 @@ const listBeerStylePlaylistService = async (temperature: number) => {
 		)
 	}
 
-	console.log(beers)
-
 	const accessToken = await getSpotifyToken()
 
 	for (let index = 0; index < beers.length; index++) {
