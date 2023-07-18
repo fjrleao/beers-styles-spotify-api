@@ -1,0 +1,268 @@
+openapi: 3.0.3
+info:
+  title: Beers Styles - API REST
+  description: |-
+    API REST para realizar operações CRUD (Create, Read, Update, Delete) em estilos de cerveja, incluindo informações sobre as temperaturas mínimas e máximas ideais para o consumo de cada estilo. A API também integra com a API do Spotify para retornar playlists relacionadas aos estilos de cerveja filtrados pela temperatura.
+  version: 1.0.0
+tags:
+  - name: beers
+    description: Rotas para o CRUD de estilos de cerveja
+paths:
+  /beers:
+    post:
+      tags:
+        - beers
+      summary: Cria um novo estilo de cerveja
+      description: Criação de um novo estilo de cerveja com suas temperaturas máxima, mínima e média ideias para consumo.
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeersRequest'
+        required: true
+      responses:
+        '200':
+          description: Cadastro realizado com sucesso
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeersResponse'
+        '400':
+          description: Campo com valor inválido ou campo faltando
+          content:
+            application/json:
+              example:
+                {
+                  "message": {
+                    "maxTemperature": [
+                      "Expected number, received string"
+                    ]
+                  }
+                }
+        '409':
+          description: Estilo de cerveja já cadastrado
+          content:
+            application/json:
+              example:
+                {
+                  "message": "Already exists"
+                }
+    get:
+      tags:
+        - beers
+      summary: Busca por todos os estilos de cerveja
+      description: Lista todos os estilos de cerveja cadastrados
+      responses:
+        '200':
+          description: Listagem feita com sucesso
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BeersResponse'
+                    
+  /beers/{id}:
+    patch:
+      tags:
+        - beers
+      summary: Atualizar as informações do estilo de cerveja
+      description: Caso sejam enviados novos valores para a temperatura mínima ou máxima, a média também será recalculada e atualizada pela aplicação, não sendo necessário enviar a nova média na requisição.
+      parameters:
+        - name: id
+          in: path
+          description: id do beerStyle que será atualizado
+          required: true
+          schema:
+            type: integer
+      requestBody:
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/BeersRequest'
+            example:
+              {
+                "minTemperature": -5,
+              }
+        required: true
+      responses:
+        '200':
+          description: Successful operation
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/BeersResponse'
+              example:
+                {
+                  "_id": "64b6d4fa089f21f1076f2783",
+                  "beerStyle": "OPA",
+                  "minTemperature": -5,
+                  "maxTemperature": 2,
+                  "avgTemperature": -1.5,
+                }
+        '400':
+          description: Campo com valor inválido
+          content:
+            application/json:
+              example:
+                {
+                  "message": {
+                    "maxTemperature": [
+                      "Expected number, received string"
+                    ]
+                  }
+                }
+    delete:
+      tags:
+        - beers
+      summary: Deleta um estilo de cerveja
+      description: Deleta o estilo de cerveja através do id passado como parâmetro na rota
+      parameters:
+        - name: id
+          in: path
+          description: id do beerStyle que será excluído
+          required: true
+          schema:
+            type: integer
+      responses:
+        '204':
+          description: Successful operation
+  /beers/playlist:
+    get:
+      tags:
+        - beers
+      summary: Filtrar estilos de cerveja e uma playlist
+      description: Filtra os estilos de cerveja através da temperatura ideal para consumo, e caso não exista uma temperatura ideal máxima ou mínima, lista usando a média mais próxima à temperatura passada no filtro. Juntamente com os estilos ideias para consumo, retorna playlists do spotify que tem o nome do estilo contido no nome da playlist. 
+      parameters:
+        - name: temperature
+          in: query
+          description: temperatura para ser consumida
+          required: true
+          schema:
+            type: integer
+      responses:
+        '200':
+          description: Listando com sucesso. Caso seja encontrada mais de um estilo, é retornado um vetor com todos os estilos encontrados e suas respectivas playlists
+          content:
+            application/json:
+              schema:
+                type: array
+                items:
+                  $ref: '#/components/schemas/BeersPlaylistResponse'
+              examples:
+                /beers/playlist?temperature=-7:
+                  value:
+                    {
+                      "beerStyle": "OPA",
+                      "playlist": {
+                        "name": "Opala Diplomata ",
+                        "tracks": [
+                          {
+                            "name": "Pague pra Entrar Reze pra Sair",
+                            "artist": "Alibi",
+                            "link": "https://api.spotify.com/v1/artists/4nBPbiPjcXskHFjQ3IE63T"
+                          }, ...]
+                      }}
+                /beers/playlist?temperature=-2:
+                  value:
+                    [{
+                      "beerStyle": "IPA",
+                      "playlist": {
+                        "name": "Ipank full album",
+                        "tracks": [
+                         {
+                          "name": "Terlalu Sadis",
+                          "artist": "Ipank",
+                          "link": "https://api.spotify.com/v1/artists/5GlpZ7HnQxaNiHxPeE2bR3"
+                        }, ...]
+                      }},
+                      {
+                      "beerStyle": "OPA",
+                      "playlist": {
+                        "name": "Opala Diplomata ",
+                        "tracks": [
+                          {
+                            "name": "Pague pra Entrar Reze pra Sair",
+                            "artist": "Alibi",
+                            "link": "https://api.spotify.com/v1/artists/4nBPbiPjcXskHFjQ3IE63T"
+                          }, ...]
+                      }}]
+        '404':
+          description: Quando não é encontrado nenhuma playlist com o estilo cadastrado
+          content:
+            application/json:
+              example:
+                {
+                  "message": "Playlists not found"
+                }
+        '400':
+          description: Quando é passado uma temperatura não numérica ou quando a temperatura não é passada 
+          content:
+            application/json:
+              example:
+               {
+                  "message": "Necessary to pass the numerical temperature in the query parameters"
+                }
+components:
+  schemas:
+    BeersRequest:
+      type: object
+      properties:
+        beerStyle:
+          type: string
+          example: "IPA"
+        minTemperature:
+          type: integer
+          example: -7
+        maxTemperature:
+          type: integer
+          example: 2
+    BeersResponse:
+      type: object
+      properties:
+        _id:
+          type: string
+          example: "64b6d4fa089f21f1076f2783"
+        beerStyle:
+          type: string
+          example: "IPA"
+        minTemperature:
+          type: integer
+          example: -7
+        maxTemperature:
+          type: integer
+          example: 2
+        avgTemperature:
+          type: number
+          example: -2.5
+    BeersPlaylistResponse:
+      type: object
+      properties:
+        beerStyle:
+          type: string
+          example: "OPA"
+        playlist:
+          type: object
+          properties:
+            name:
+              type: string
+              example: "Opala Diplomata"
+            tracks:
+              type: array
+              items:
+                $ref: "#/components/schemas/TracksData"
+              example: 
+                {
+                  "name": "Pague pra Entrar Reze pra Sair",
+                  "artist": "Alibi",
+                  "link": "https://api.spotify.com/v1/artists/4nBPbiPjcXskHFjQ3IE63T"
+                  }
+    TracksData:
+      properties:
+        name:
+          type: string
+        artist:
+          type: string
+        link:
+            type: string
+  
