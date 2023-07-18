@@ -9,4 +9,15 @@ type TBeer = z.infer<typeof beerSchema>
 type TBeerCreate = z.infer<typeof beerCreateSchema>
 type TBeerUpdate = z.infer<typeof beerUpdateSchema>
 
-export { TBeer, TBeerCreate, TBeerUpdate }
+type TBeerPlaylist = {
+	beerStyle: string
+	playlist: {
+		name: string
+		tracks: {
+			artits: string
+			link: string
+		}[]
+	}
+}
+
+export { TBeer, TBeerCreate, TBeerUpdate, TBeerPlaylist }

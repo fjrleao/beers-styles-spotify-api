@@ -5,8 +5,11 @@ import {
 import { AppError } from '../errors'
 import { Beer } from '../models/Beer'
 import axios from 'axios'
+import { TBeerPlaylist } from '../types/beer.types'
 
-const listBeerStylePlaylistService = async (temperature: number) => {
+const listBeerStylePlaylistService = async (
+	temperature: number
+): Promise<TBeerPlaylist | Array<TBeerPlaylist>> => {
 	if (Number.isNaN(temperature)) {
 		throw new AppError(
 			'Necessary to pass the numerical temperature in the query parameters'

@@ -89,6 +89,29 @@ describe('Test beers routes', () => {
 		})
 	})
 
+	describe('Test list beer and playlist by temperature', () => {
+		it('[Success] GET /beers/playlist -> Should be capable to list playlist passing temperature query', async () => {
+			const response = await request(app).get('/beers/playlist?temperature=1')
+
+			expect(response.status).toBe(200)
+			expect(response.body.beerStyle).toBe('Atualizado')
+			expect(response.body.playlist.name).toContain('Atualizado')
+			expect(response.body.playlist.tracks[0]).toHaveProperty('name')
+			expect(response.body.playlist.tracks[0]).toHaveProperty('artist')
+			expect(response.body.playlist.tracks[0]).toHaveProperty('link')
+		})
+
+		it('[Error] GET /beers/playlist -> Should return error when pass a wrong temperature', async () => {
+			const response = await request(app).get('/beers/playlist?temperature=abc')
+
+			expect(response.status).toBe(400)
+			expect(response.body).toHaveProperty('message')
+			expect(response.body.message).toBe(
+				'Necessary to pass the numerical temperature in the query parameters'
+			)
+		})
+	})
+
 	describe('Test delete beer', () => {
 		it('[Success] DELETE /beers/:id -> Should be capable to delete a beer', async () => {
 			const response = await request(app).delete(`/beers/${beerId}`)
