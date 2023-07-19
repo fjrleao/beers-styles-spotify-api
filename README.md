@@ -19,6 +19,7 @@ E criar conta nos serviços:
 
 - [MongoDB Atlas](https://www.mongodb.com/cloud/atlas/register)
 - [Spotify API](https://developer.spotify.com/)
+- [AWS](https://aws.amazon.com/pt/) (caso queira fazer o deploy)
 
 Obs: O tutorial de execução mostra como usar o MongoDb Atlas, mas também é possível instalar o Mongo localmente para executar o projeto.
 
@@ -129,7 +130,7 @@ sudo apt install nginx
 sudo nano /etc/nginx/sites-available/default
 ```
 
-Dentro do nado, vá até a sessão **location /** e coloque as seguintes configurações:
+Dentro do nano, vá até a sessão **location /** e coloque as seguintes configurações:
 
 ```nginx
 location / {
@@ -154,6 +155,7 @@ Agora você pode acessar a aplicação passando o IP da instância AWS na URL do
 
 - [Node.js](https://nodejs.org/en)
 - [Docker](https://www.docker.com/)
+- [AWS](https://aws.amazon.com/pt/)
 
 ## Usando os serviços em cloud
 
