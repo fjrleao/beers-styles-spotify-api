@@ -55,7 +55,7 @@ npm run dev
 
 ### Executando os testes
 
-A execução dos testes depende da execução do docker, isso acontece pois é necessário se conectar a um banco de dados MongoDB para manIPulação dos dados.
+A execução dos testes depende da execução do docker, isso acontece pois é necessário se conectar a um banco de dados MongoDB para manipulação dos dados.
 
 Caso deseje executar os testes da aplicação, suba o container usado o compose:
 
@@ -74,7 +74,7 @@ npm run test
 Acesse o console da AWS, [crie uma instância do EC2](https://docs.aws.amazon.com/pt_br/codedeploy/latest/userguide/instances-ec2-create.html) e acesse ela usando o ssh via terminal. Lembre-se que é necessário a key gerada pela AWS na criação da instância para acessá-la:
 
 ```bash
-ssh -i <key-file>.pem <username>@<IP-instancia>
+ssh -i <key-file>.pem <username>@<ip-instancia>
 ```
 
 Instale o Node.js:
@@ -112,7 +112,7 @@ npm run build
 Execute o projeto em segundo plano e libere o terminal, iremos precisar dele para mais algumas configurações:
 
 ```bash
-node dist/src/server.js
+node dist/src/server.js &
 ```
 
 ```bash
