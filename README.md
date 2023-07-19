@@ -129,7 +129,7 @@ sudo apt install nginx
 sudo nano /etc/nginx/sites-available/default
 ```
 
-Dentro do nado, vá até a sessão **location /** e coloque as seguintes configurações:
+Dentro do nano, vá até a sessão **location /** e coloque as seguintes configurações:
 
 ```nginx
 location / {
