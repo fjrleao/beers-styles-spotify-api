@@ -1,10 +1,10 @@
 # beerStyles API 🍺
 
-Esse projeto se trata de uma REST API para fazer o CRUD de estilos de cerveja e suas temperaturas ideais de consumo. A API também integra com o API do Spotify com o intuito de retornar playlists que tenham o nome parecido com o estilo de cerveja em uma das rotas de GET.
+Este projeto consiste em uma API REST para realizar as operações CRUD de estilos de cerveja e suas temperaturas ideais de consumo. A API também integra com a API do Spotify, permitindo que, em uma das rotas de requisição GET, sejam retornadas playlists cujos nomes sejam similares aos estilos de cerveja.
 
-## Rotas da API
+### Rotas da API
 
-Acesse a **[documentação das rotas](https://fjrleao.github.io/beers-styles-spotify-api/public/docs/)** para saber como cada requisição deve ser feita e o que esperar de cada resposta. A documentação também poderá ser acessada através da rota **_/docs_** no execução local ou no deploy da aplicação.
+Acesse a **[documentação das rotas](https://fjrleao.github.io/beers-styles-spotify-api/public/docs/)** para obter informações detalhadas sobre como fazer cada requisição e entender o que esperar em cada resposta. Você também pode acessar a documentação facilmente através da rota **_/docs_** tanto na execução local quanto no deploy da aplicação.
 
 ## Executando o projeto 🚀
 
@@ -21,7 +21,7 @@ E criar conta nos serviços:
 - [Spotify API](https://developer.spotify.com/)
 - [AWS](https://aws.amazon.com/pt/) (caso queira fazer o deploy)
 
-Obs: O tutorial de execução mostra como usar o MongoDb Atlas, mas também é possível instalar o Mongo localmente para executar o projeto.
+Obs: O tutorial de execução considera o uso do MongoDB Atlas, porém, é igualmente possível instalar o MongoDB localmente para executar o projeto.
 
 ### Executando localmente
 
@@ -35,14 +35,14 @@ git clone https://github.com/fjrleao/beers-styles-spotify-api.git
 cd beers-styles-spotify-api
 ```
 
-Crie um arquivo **.env** e preencha ele com as variáveis de ambiente se baseando no arquivo **.env.example**:
+Crie um arquivo **.env** e preencha ele com as informações necessárias, tomando como base o conteúdo do arquivo **.env.example** fornecido:
 
 - O preenchimento da **PORT** não é obrigatório, caso não preenchido a aplicação será executada por padrão na porta 3000.
 - Para conseguir as credencias do spotify, basta [seguir o passo a passo](#spotifyapi).
 - Para conseguir a URL de acesso ao MongoDB basta [seguir o passo a passo](#mongodb).
 - O nome do banco de dados pode ser preenchido de acordo com a sua preferência, eu recomendo usar o nome _beers_.
 
-Instale as dependências do projeto usando o **npm** ou seu gerenciador de pacotes do node preferido:
+Instale as dependências do projeto usando o **npm**, ou seu gerenciador de pacotes para o node preferido:
 
 ```bash
 npm install
@@ -53,6 +53,8 @@ Execute o projeto com o script de dev:
 ```bash
 npm run dev
 ```
+
+Agora você pode acessar a aplicação através do localhost usando um client API: `http://localhost:<PORT>/beers`
 
 ### Executando os testes
 
@@ -72,13 +74,13 @@ npm run test
 
 ### Fazendo deploy na AWS
 
-Acesse o console da AWS, [crie uma instância do EC2](https://docs.aws.amazon.com/pt_br/codedeploy/latest/userguide/instances-ec2-create.html) e acesse ela usando o ssh via terminal. Lembre-se que é necessário a key gerada pela AWS na criação da instância para acessá-la:
+Acesse o console da AWS, **[crie uma instância do EC2](https://docs.aws.amazon.com/pt_br/codedeploy/latest/userguide/instances-ec2-create.html)** e acesse ela usando o ssh via terminal. Lembre-se que é necessário a key gerada pela AWS na criação da instância para acessá-la:
 
 ```bash
 ssh -i <key-file>.pem <username>@<ip-instancia>
 ```
 
-Instale o Node.js:
+Instale o Node.js no servidor:
 
 - [Tutorial de instalação](https://docs.aws.amazon.com/pt_br/sdk-for-javascript/v2/developer-guide/setting-up-node-on-ec2-instance.html)
 
@@ -92,7 +94,9 @@ git clone https://github.com/fjrleao/beers-styles-spotify-api.git
 cd beers-styles-spotify-api
 ```
 
-Crie um arquivo **.env** e preencha ele com as variáveis de ambiente se baseando no arquivo **.env.example**:
+Crie um arquivo **.env** e preencha ele com as informações necessárias, tomando como base o conteúdo do arquivo **.env.example** fornecido:
+
+Como o servidor possivelmente será uma máquina linux, recomendo o uso do [editor de texto nano](https://terminalroot.com.br/2015/10/o-editor-de-texto-nano.html), que já vem instalado por padrão.
 
 - O preenchimento da **PORT** não é obrigatório, caso não preenchido a aplicação será executada por padrão na porta 3000.
 - Para conseguir as credencias do spotify, basta [seguir o passo a passo](#spotifyapi).
@@ -149,7 +153,7 @@ Reinicie o nginx e sua aplicação já estará no ar:
 sudo service nginx restart
 ```
 
-Agora você pode acessar a aplicação passando o IP da instância AWS na URL do client API: `http://<ip-aws>/beers`
+Agora você pode acessar a aplicação passando o IP da instância AWS na URL no seu client API: `http://<ip-aws>/beers`
 
 ## Tecnologias usadas no projeto
 
