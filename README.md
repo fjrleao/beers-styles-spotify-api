@@ -4,7 +4,7 @@ Este projeto consiste em uma API REST para realizar as operações CRUD de estil
 
 ### Rotas da API
 
-Acesse a **[documentação das rotas](https://fjrleao.github.io/beers-styles-spotify-api/public/docs/)** para obter informações detalhadas sobre como fazer cada requisição e entender o que esperar em cada resposta. Você também pode acessar a documentação facilmente através da rota **_/docs_** tanto na execução local quanto no deploy da aplicação.
+Acesse a **[documentação das rotas](https://fjrleao.github.io/beers-styles-spotify-api/public/docs/)** para obter informações detalhadas sobre como fazer cada requisição e entender o que esperar em cada resposta.
 
 ## Executando o projeto 🚀
 
